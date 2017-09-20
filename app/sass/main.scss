@@ -1,0 +1,395 @@
+@import 'reset';
+@import 'modules/media-queries';
+@import 'modules/variables';
+@import 'modules/mixins';
+@import 'modules/placeholders';
+@import 'modules/keyframes'; 
+
+
+*{
+	box-sizing: border-box; 
+}
+
+body{
+	font-family: $primary-font;
+	font-size: $primary-font-size;
+	font-weight: $primary-font-weight;
+	color: $white;
+	overflow-x:hidden;
+}
+
+
+/*nav section*/
+.menu-container {  
+    width: 50vw; 
+    height: 100vh;
+    z-index: 100;
+    background: $black; 
+    position:fixed;
+    left: -50vw;
+    @include transition (1s ease-in-out);
+    @include respond-to(large-devices){
+    	width:100%;  
+    	height: auto;
+    	position: fixed;
+    	background: none;
+    	left:0;
+    } 
+    &.slide-in {
+	left:0;
+}  
+}
+
+.menu{
+	@extend %vertically-centered;
+	@include respond-to(large-devices){		
+		@include transform(translateY(0));
+	}
+}
+ 
+.menu-primary{
+	padding: 1rem;
+	text-align:center;
+	background: $black;
+}
+
+.menu-item{
+	@extend %menu-item;
+	margin-bottom: 1rem;
+	@include respond-to(large-devices) {
+    	display: inline-block;
+    	margin-bottom: 0;    	
+    }    
+}
+
+.menu-item-link{
+	border:1px solid $white;
+	padding: 0.5rem 1rem;
+	&:hover{
+		background: $white;
+		color: $black;
+		transition: 0.5s ease-in;
+	}
+}
+
+.mobile-menu-trigger {
+	position: fixed;
+	top: 15px;
+	right: 15px;
+	z-index: 99;
+	width: 23px;
+	cursor: pointer;  
+	@include respond-to(large-devices){
+		display: none;
+	}
+
+}
+
+ .mobile-menu-line {
+	display: block;
+    height: 2px;
+    width: 100%;
+    background-color: $white;
+    margin-bottom: 4px;
+    border-radius: 2px;
+    transition: 1s cubic-bezier(0.82, 0.05, 0.36, 0.9);  
+}
+
+.open{
+.line-1{  
+    @include transform (translateY(6px) rotateZ(-135deg));
+ }
+
+ .line-2{
+    opacity:0;
+ }
+
+ .line-3 {   
+    @include transform (translateY(-6px) rotateZ(135deg)); 
+ }
+}  
+
+  
+/*header*/
+.header-content {   
+	height: 100vh;
+	width: 100%; 
+	overflow: hidden;  
+	position: relative;       
+}
+
+.header-background{   
+	background-image: url("../assets/background.jpeg");                         
+	opacity: 0.5; 
+	@include animated-bkg;               
+
+}
+
+
+/*Main content*/
+.main-wrapper{
+	position:relative;
+}
+.main-content, .what-we-do-content {	
+    @include respond-to(large-devices){      
+	@include large-device-box; 
+	}
+}
+
+.flex-box{
+	@extend %flex;
+	&.flex-cards {
+		justify-content: space-around;
+		padding: 2rem 0;
+		align-items: center;
+	}
+	&.footer-contact{
+		justify-content: space-around;
+	}
+}
+
+.main-article {	
+	background: $complementary-color-with-opacity;	
+	@include respond-to(large-devices){ 
+	flex:2;	
+	&:hover{
+		.h3-header{
+			@include transform(scale(1.2));
+			@include transform-origin(left);
+			transition:1s;
+		}
+	}
+}
+}
+.aside-article{ 
+	background: $main-color;	
+	@include respond-to(large-devices){
+	flex:1;
+	position:relative;
+	&:hover{
+		.h3-header{
+			@include transform(scale(1.2));
+			@include transform-origin(left);
+			transition:1s;
+		}
+	} 
+}
+}
+
+/*what we do*/
+.what-we-do-wrapper{
+	background:$main-color;
+	text-align:center;
+}
+
+.flex-centered{
+	@extend %flex-centered;
+}
+
+.flip-container {
+  position: relative;
+  width: 18.75rem;
+  height: 12.5rem;
+  z-index: 1;
+  perspective: 1000px;
+  margin-bottom: 1rem;
+  &:hover{
+  	.flip-card{
+  		transition: 2s cubic-bezier(0.53, 0, 0.43, 0.99);
+  		@include transform(rotateY(180deg)); 
+  	}	
+  }
+}
+
+.flip-card {
+  width: 100%;
+  height: 100%;
+  border: 3px solid $complementary-color;
+  transform-style: preserve-3d;
+  transition: all 1.0s linear;
+}
+
+.side {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  @extend %flex-centered
+}
+.back {
+  @include transform(rotateY(180deg)); 
+  padding: 2rem;
+ 
+}
+ 
+ /*fixed bkg section*/
+.fixed-background{
+	background: url(../assets/bike.jpg);
+    background-attachment: fixed;
+    background-position: -300px;
+    background-size: cover;
+    height: 80vh;
+ 	background-repeat: no-repeat;
+
+ 	@include respond-to(large-devices){
+    background-size: cover;
+    background-position:0;
+    height: 70vh;
+	}
+}
+
+.footer{
+	background:$main-color-light;
+	height: auto;
+	text-align:center;
+	position: relative;
+	color: $black;
+	@extend %spacing; 
+}
+
+.footer-contact{
+	width:50%;
+	margin:0 auto;
+}
+
+
+
+// elements 
+.triangle{
+	@extend %triangle;
+	&.triangle-header{
+		border-left: 1200px solid $black;
+		border-top: 300px solid transparent;
+	    border-bottom:300px solid transparent;
+	} 
+	@include respond-to(large-devices){ 
+	&.triangle-right-aside{
+	    border-right: 1700px solid black;
+	    border-top: 300px solid transparent;
+	    border-bottom:300px solid transparent;
+	    position:absolute;
+	    right:0;
+	    top:0;
+	    z-index:-3; 
+	}
+	&.triangle-footer{
+		border-left: 80px solid $black;
+		border-top: 70px solid transparent;
+	    border-bottom:70px solid transparent;
+	    position:absolute;
+	    left:0;
+	    top:-4.5rem; 
+	}
+}
+}
+
+ 
+ .button{  
+ 	@extend %button; 
+ 	&.button-call-to-action{ 
+ 		&:hover{ 
+			@include animation('shake 0.6s ease-in-out'); 						
+		}  
+ 		@include linear-gradient(135deg, $light-red, $call-to-action, $dark-red);
+ 		position:relative;
+ 		top:60%;
+		margin: 0 auto;
+ 	}
+ 	&.button-info{
+ 		background: $information;
+ 		color: $main-color;
+ 		margin: 0 auto;
+ 		margin-top:1rem;
+ 		&:hover{ 
+			@include animation('rotate 0.5s ease-in-out');
+			@include transform-origin (0); 						
+		}  
+ 	}
+ }
+
+.h2{
+	@extend %h2; 
+	&.h2-header{
+	@extend %vertically-centered;  
+	color:$light-grey;  
+	text-align: center;
+	text-transform: uppercase;
+	padding: 1.5rem; 
+}
+}
+
+.h3{
+	@extend %h3;
+	&.h3-header{
+		padding-bottom:1.5rem;
+	}
+	&.h3-footer{
+		color: $black;
+		padding:1rem; 
+		
+	}
+}
+
+.h4{
+	@extend %h4;
+	&.h4-footer{
+		border-top: 1px solid black;
+		text-decoration: none;
+		margin-top:1rem;
+	}   
+}
+
+a{
+	color:$white;
+	text-decoration:none;
+}
+	
+.item-box{
+	@extend %item-box-basic;  
+}
+
+.spacing{
+	@extend %spacing;    
+}
+
+
+.circle-container{  
+	width:100px;
+    height:100px;
+     margin: 0 auto;
+	position:relative;
+	&:hover{
+	 .circle{
+		@include animation('spread 0.7s linear both'); 
+		&.c-2{
+  		animation-delay: 0.2s;
+  		}  
+  		&.c-3{
+  		animation-delay: 0.4s; 
+  		} 
+  		&.c-4{
+  		animation-delay: 0.6s;   
+  		}        
+    }
+	}
+}
+
+.circle { 
+  @extend %circle;
+  border:2px solid $white;
+  background:transparent;
+  position:absolute;  
+  }
+
+  .circle-0{
+  @extend %circle;
+  @extend %flex-centered;
+  background: $main-color; 
+  position:absolute;
+  z-index: 2;
+  @include box-shadow(0px 0px 20px 1px white); 
+  img{
+  	max-width:50%;
+  }
+  }
+  

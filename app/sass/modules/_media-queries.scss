@@ -1,0 +1,27 @@
+$small-devices: 576px;  // Small devices (landscape phones, 576px and up)
+$medium-devices: 768px;  // Medium devices (tablets, 768px and up)
+$large-devices: 992px;  // Large devices (desktops, 992px and up)
+$extra-large-devices: 1200px; // Extra large devices (large desktops, 1200px and up)
+
+@mixin respond-to($media){
+  @if $media == small-devices{
+    @media only screen and (mix-width: $small-devices){ 
+      @content; 
+    }
+  }
+  @else if $media == medium-devices{
+    @media only screen and (min-width: $medium-devices){ 
+      @content; 
+    }
+  }
+  @else if $media == large-devices{
+    @media only screen and (min-width: $large-devices){ 
+      @content;
+    }
+  }
+  @else if $media == extra-large-devices{
+     @media only screen and (min-width: $extra-large-devices){ 
+      @content; 
+    }
+  }
+}
